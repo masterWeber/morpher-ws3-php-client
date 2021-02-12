@@ -1,0 +1,42 @@
+{
+    "name": "masterweber/morpher-ws3-php-client",
+    "description": "PHP-клиент веб-сервиса \"Морфер\" 3.0",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "morpher",
+        "web-service",
+        "морфер",
+        "склонятель",
+        "склонятор",
+        "падеж",
+        "родительный",
+        "дательный",
+        "родительный",
+        "русском",
+        "украинском",
+        "казахском"
+    ],
+    "homepage": "https://github.com/masterWeber/morpher-ws3-php-client#readme",
+    "authors": [
+        {
+            "name": "Stanislav Tkach",
+            "email": "master.weber@outlook.com",
+            "homepage": "https://github.com/masterWeber",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Morpher\\": "src/Morpher"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    }
+}
