@@ -4,6 +4,8 @@
 namespace Morpher;
 
 
+use Morpher\Communicator\Communicator;
+
 abstract class Client
 {
     protected Communicator $communicator;
