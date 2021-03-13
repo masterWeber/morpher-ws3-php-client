@@ -8,19 +8,21 @@ use stdClass;
 
 class CorrectionEntry
 {
-    public CorrectionForms $singular;
+    public ?CorrectionForms $singular = null;
     public ?CorrectionForms $plural = null;
     public ?string $gender = null;
 
-    public function __construct(stdClass $props)
+    public function __construct(?stdClass $props = null)
     {
-        $this->singular = new CorrectionForms($props->singular);
+        if (isset($props->singular)) {
+            $this->singular = new CorrectionForms($props->singular);
+        }
 
-        if ($props->plural) {
+        if (isset($props->plural)) {
             $this->plural = new CorrectionForms($props->plural);
         }
 
-        if ($props->gender) {
+        if (isset($props->gender)) {
             $this->gender = $props->gender;
         }
     }

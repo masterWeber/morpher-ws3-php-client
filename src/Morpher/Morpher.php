@@ -6,7 +6,6 @@ namespace Morpher;
 
 use Morpher\Communicator\Communicator;
 use Morpher\Communicator\HttpCommunicator;
-use Morpher\Communicator\InvalidServerResponseException;
 use Morpher\Qazaq\QazaqClient;
 use Morpher\Russian\RussianClient;
 use Morpher\Ukrainian\UkrainianClient;

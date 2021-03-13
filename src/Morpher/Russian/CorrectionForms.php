@@ -16,7 +16,7 @@ class CorrectionForms
     public string $genitive = '';
     public string $nominative = '';
 
-    public function __construct(stdClass $props)
+    public function __construct(?stdClass $props = null)
     {
         if (isset($props->И)) {
             $this->nominative = $props->И;
