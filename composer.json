@@ -31,6 +31,11 @@
             "Morpher\\": "src/Morpher"
         }
     },
+    "scripts": {
+        "test": [
+            "php vendor/bin/phpunit ./tests"
+        ]
+    },
     "require-dev": {
         "phpunit/phpunit": "^9"
     },
