@@ -6,7 +6,6 @@ PHP-клиент веб-сервиса "Морфер" 3.0
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/masterWeber/morpher-ws3-php-client)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/masterweber/morpher-ws3-php-client)
 ![GitHub](https://img.shields.io/github/license/masterWeber/morpher-ws3-php-client)
-и [платное](https://morpher.ru/ws3/buy/) использование. Подробнее смотрите на [сайте проекта](https://morpher.ru).
 
 ## Установка
 
