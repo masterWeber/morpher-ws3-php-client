@@ -70,7 +70,7 @@ $morpher = new Morpher(
 ```php
 use Morpher\Morpher;
 
- $morpher = new Morpher();
+$morpher = new Morpher();
 ```
 
 <p id="russian-declension"></p>
@@ -177,8 +177,8 @@ echo $result->unit->genitive; // рублей
 
 ### Пропись чисел в виде порядковых числительных
 
-Метод `russian->spellOrdinal(int $number, string $unit)` похож на `russian->spell(int $number, string $unit)`, но возвращает пропись числа в форме
-порядкового числительного:
+Метод `russian->spellOrdinal(int $number, string $unit)` похож на `russian->spell(int $number, string $unit)`, но
+возвращает пропись числа в форме порядкового числительного:
 
 ```php
 $result = $morpher->russian->spellOrdinal(5, 'колесо');
@@ -205,8 +205,8 @@ echo $result->instrumental; // двадцать девятому июня две
 
 ### Склонение прилагательных по родам
 
-Метод `russian->adjectiveGenders(string $adjective)` склоняет данное ему прилагательное, преобразуя его из мужского рода в
-женский, средний и во множественное число:
+Метод `russian->adjectiveGenders(string $adjective)` склоняет данное ему прилагательное, преобразуя его из мужского рода
+в женский, средний и во множественное число:
 
 ```php
 $result = $morpher->russian->adjectiveGenders('уважаемый');
@@ -227,8 +227,8 @@ echo $result->plural;   // уважаемые
 
 ### Образование прилагательных
 
-Метод `russian->adjectivize(string $lemma)` образует прилагательные от названий городов и стран: Москва – московский, Ростов –
-ростовский, Швеция – шведский, Греция – греческий.
+Метод `russian->adjectivize(string $lemma)` образует прилагательные от названий городов и стран: Москва – московский,
+Ростов – ростовский, Швеция – шведский, Греция – греческий.
 
 Пример:
 
@@ -464,8 +464,8 @@ $morpher->ukrainian->userDict->remove('Кiшка'); // true
 
 ## Разработка
 
-PHP: Убедитесь, что [установлена](https://www.php.net/downloads) версия PHP не ниже ^7.4. Проверить это можно с
-помощью php -v.
+PHP: Убедитесь, что [установлена](https://www.php.net/downloads) версия PHP не ниже ^7.4. 
+Проверить это можно с помощью `php -v`.
 
 ### Установка
 
@@ -489,7 +489,8 @@ $ composer test
 
 * [Добавить новый релиз](https://github.com/masterWeber/morpher-ws3-php-client/releases) на GitHub.
 
-Примерно через минуту новый пакет должен появиться на [packagist.org](https://packagist.org/packages/masterweber/morpher-ws3-php-client).
+Примерно через минуту новый пакет должен появиться
+на [packagist.org](https://packagist.org/packages/masterweber/morpher-ws3-php-client).
 
 ## License
 
