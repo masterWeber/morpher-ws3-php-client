@@ -1,8 +1,7 @@
 <?php
 
-namespace Russian;
+namespace Morpher\Russian;
 
-use Morpher\Russian\DeclensionResult;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
