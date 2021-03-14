@@ -12,6 +12,13 @@ use Morpher\Communicator\InvalidServerResponseException;
 
 class RussianClient extends Client
 {
+    const FLAG_FEMININE = 'feminine';
+    const FLAG_MASCULINE = 'masculine';
+    const FLAG_ANIMATE = 'animate';
+    const FLAG_INANIMATE = 'inanimate';
+    const FLAG_COMMON = 'common';
+    const FLAG_NAME = 'name';
+
     const PREFIX = '/russian';
 
     public UserDict $userDict;
