@@ -8,7 +8,7 @@ use stdClass;
 
 class CorrectionFormsTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $props = new stdClass();
         $props->И = 'Тест';
