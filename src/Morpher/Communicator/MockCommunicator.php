@@ -14,6 +14,9 @@ class MockCommunicator implements Communicator
      */
     public $response;
     public ?Exception $exception = null;
+    public string $lastPath;
+    public array $lastParams;
+    public string $lastHttpMethod;
 
     /**
      * @param string $path
@@ -24,6 +27,10 @@ class MockCommunicator implements Communicator
      */
     public function request(string $path, array $params, string $method)
     {
+        $this->lastPath = $path;
+        $this->lastParams = $params;
+        $this->lastHttpMethod = $method;
+
         if ($this->exception) {
             throw $this->exception;
         }
