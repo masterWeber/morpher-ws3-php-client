@@ -20,6 +20,14 @@ class UkrainianClient extends Client
 
     const PREFIX = '/ukrainian';
 
+    public UserDict $userDict;
+
+    public function __construct(Communicator $communicator)
+    {
+        parent::__construct($communicator);
+        $this->userDict = new UserDict($communicator);
+    }
+
     public function declension(string $phrase, string ...$flags): DeclensionResult
     {
         $params = [

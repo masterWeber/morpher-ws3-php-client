@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Morpher\Russian;
+namespace Morpher\Ukrainian;
 
 
 use Morpher\Communicator\ArgumentEmptyException;
@@ -10,7 +10,7 @@ use Morpher\Communicator\InvalidServerResponseException;
 
 class UserDict
 {
-    const PREFIX = '/russian/userdict';
+    const PREFIX = '/ukrainian/userdict';
 
     protected Communicator $communicator;
 
