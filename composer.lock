@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fac1d6af607963cdd6844d2e04693ec5",
+    "content-hash": "b1cc377ad1f3406c7bdac1dfcc0835ff",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -389,6 +389,50 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "codeception/assert-throws",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/AssertThrows.git",
+                "reference": "2e3086953d4b9653cdd4920004ee061acf20b53b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/AssertThrows/zipball/2e3086953d4b9653cdd4920004ee061acf20b53b",
+                "reference": "2e3086953d4b9653cdd4920004ee061acf20b53b",
+                "shasum": ""
+            },
+            "require": {
+                "phpunit/phpunit": "^7.5|^8.0|^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Codeception\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "davert",
+                    "email": "davert@codeception.com"
+                },
+                {
+                    "name": "Gustavo Nieves",
+                    "homepage": "https://medium.com/@ganieves"
+                }
+            ],
+            "description": "Assert exception was thrown without stopping a test",
+            "support": {
+                "issues": "https://github.com/Codeception/AssertThrows/issues",
+                "source": "https://github.com/Codeception/AssertThrows/tree/1.1.0"
+            },
+            "time": "2020-10-02T11:37:41+00:00"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
