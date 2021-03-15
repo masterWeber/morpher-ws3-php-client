@@ -3,6 +3,7 @@
 namespace Morpher\Russian;
 
 use Codeception\AssertThrows;
+use DateTime;
 use Morpher\Communicator\ArgumentEmptyException;
 use Morpher\Communicator\Communicator;
 use Morpher\Communicator\InvalidServerResponseException;
@@ -486,7 +487,7 @@ class RussianClientTest extends TestCase
         $this->assertThrows(
           ArgumentEmptyException::class,
           function () use ($client) {
-              $client->spell(5, '');
+              $client->spellOrdinal(5, '');
           });
 
         $client->communicator->exception = new InvalidServerResponseException(
@@ -498,7 +499,7 @@ class RussianClientTest extends TestCase
         $this->assertThrows(
           ArgumentNotRussianException::class,
           function () use ($client) {
-              $client->spell(5, 'test');
+              $client->spellOrdinal(5, 'test');
           });
 
         $client->communicator->exception = new InvalidServerResponseException(
@@ -510,7 +511,327 @@ class RussianClientTest extends TestCase
         $this->assertThrows(
           InvalidServerResponseException::class,
           function () use ($client) {
-              $client->spell(5, 'колесо');
+              $client->spellOrdinal(5, 'колесо');
+          });
+    }
+
+    public function testSpellDate(): void
+    {
+        $client = new class extends RussianClient {
+            public Communicator $communicator;
+
+            public function __construct()
+            {
+                $communicator = new MockCommunicator();
+                parent::__construct($communicator);
+            }
+        };
+
+        // should use the correct parameters
+        $response = (object)[
+          'И' => 'первое января две тысячи двадцать первого года',
+          'Р' => 'первого января две тысячи двадцать первого года',
+          'Д' => 'первому января две тысячи двадцать первого года',
+          'В' => 'первое января две тысячи двадцать первого года',
+          'Т' => 'первым января две тысячи двадцать первого года',
+          'П' => 'первом января две тысячи двадцать первого года',
+        ];
+
+        $client->communicator->response = $response;
+
+        $date = new DateTime('2021-01-01');
+        $client->spellDate($date);
+
+        $this->assertEquals(
+          '/russian/spell-date',
+          $client->communicator->lastPath
+        );
+
+        $this->assertEquals(
+          $date->format('2021-01-01'),
+          $client->communicator->lastParams['date']
+        );
+
+        $this->assertEquals(
+          Communicator::METHOD_GET,
+          $client->communicator->lastHttpMethod
+        );
+
+        // should return spelling number
+        $dateSpellingResult = $client->spellDate($date);
+
+        $this->assertEquals(
+          $response->И,
+          $dateSpellingResult->nominative
+        );
+
+        $this->assertEquals(
+          $response->Р,
+          $dateSpellingResult->genitive
+        );
+
+        $this->assertEquals(
+          $response->Д,
+          $dateSpellingResult->dative
+        );
+
+        $this->assertEquals(
+          $response->В,
+          $dateSpellingResult->accusative
+        );
+
+        $this->assertEquals(
+          $response->Т,
+          $dateSpellingResult->instrumental
+        );
+
+        $this->assertEquals(
+          $response->П,
+          $dateSpellingResult->prepositional
+        );
+
+        // should throw Exception
+        $client->communicator->exception = new InvalidServerResponseException(
+          400,
+          'Не указан обязательный параметр: date.',
+          6
+        );
+
+        $this->assertThrows(
+          ArgumentEmptyException::class,
+          function () use ($client, $date) {
+              $client->spellDate($date);
+          });
+
+        $client->communicator->exception = new InvalidServerResponseException(
+          500,
+          'Ошибка сервера.',
+          11
+        );
+
+        $this->assertThrows(
+          InvalidServerResponseException::class,
+          function () use ($client, $date) {
+              $client->spellDate($date);
+          });
+    }
+
+    public function testAdjectiveGenders(): void
+    {
+        $client = new class extends RussianClient {
+            public Communicator $communicator;
+
+            public function __construct()
+            {
+                $communicator = new MockCommunicator();
+                parent::__construct($communicator);
+            }
+        };
+
+        // should use the correct parameters
+        $response = (object)[
+          'feminine' => 'уважаемая',
+          'neuter' => 'уважаемое',
+          'plural' => 'уважаемые',
+        ];
+
+        $client->communicator->response = $response;
+
+        $client->adjectiveGenders('уважаемый');
+
+        $this->assertEquals(
+          '/russian/genders',
+          $client->communicator->lastPath
+        );
+
+        $this->assertEquals(
+          'уважаемый',
+          $client->communicator->lastParams['s']
+        );
+
+        $this->assertEquals(
+          Communicator::METHOD_GET,
+          $client->communicator->lastHttpMethod
+        );
+
+        // should return spelling number
+        $adjectiveGenders = $client->adjectiveGenders('уважаемый');
+
+        $this->assertEquals(
+          $response->feminine,
+          $adjectiveGenders->feminine
+        );
+
+        $this->assertEquals(
+          $response->neuter,
+          $adjectiveGenders->neuter
+        );
+
+        $this->assertEquals(
+          $response->plural,
+          $adjectiveGenders->plural
+        );
+
+        // should throw Exception
+        $client->communicator->exception = new InvalidServerResponseException(
+          400,
+          'Не указан обязательный параметр: s.',
+          6
+        );
+
+        $this->assertThrows(
+          ArgumentEmptyException::class,
+          function () use ($client) {
+              $client->adjectiveGenders('уважаемый');
+          });
+
+        $client->communicator->exception = new InvalidServerResponseException(
+          500,
+          'Ошибка сервера.',
+          11
+        );
+
+        $this->assertThrows(
+          InvalidServerResponseException::class,
+          function () use ($client) {
+              $client->adjectiveGenders('уважаемый');
+          });
+    }
+
+    public function testAdjectivize(): void
+    {
+        $client = new class extends RussianClient {
+            public Communicator $communicator;
+
+            public function __construct()
+            {
+                $communicator = new MockCommunicator();
+                parent::__construct($communicator);
+            }
+        };
+
+        // should use the correct parameters
+        $response = ['ростовский'];
+
+        $client->communicator->response = $response;
+
+        $client->adjectivize('Ростов');
+
+        $this->assertEquals(
+          '/russian/adjectivize',
+          $client->communicator->lastPath
+        );
+
+        $this->assertEquals(
+          'Ростов',
+          $client->communicator->lastParams['s']
+        );
+
+        $this->assertEquals(
+          Communicator::METHOD_GET,
+          $client->communicator->lastHttpMethod
+        );
+
+        // should return spelling number
+        $result = $client->adjectivize('Ростов');
+
+        $this->assertEquals(
+          $response,
+          $result
+        );
+
+        // should throw Exception
+        $client->communicator->exception = new InvalidServerResponseException(
+          400,
+          'Не указан обязательный параметр: s.',
+          6
+        );
+
+        $this->assertThrows(
+          ArgumentEmptyException::class,
+          function () use ($client) {
+              $client->adjectivize('Ростов');
+          });
+
+        $client->communicator->exception = new InvalidServerResponseException(
+          500,
+          'Ошибка сервера.',
+          11
+        );
+
+        $this->assertThrows(
+          InvalidServerResponseException::class,
+          function () use ($client) {
+              $client->adjectivize('Ростов');
+          });
+    }
+
+    public function testAddStressMarks(): void
+    {
+        $client = new class extends RussianClient {
+            public Communicator $communicator;
+
+            public function __construct()
+            {
+                $communicator = new MockCommunicator();
+                parent::__construct($communicator);
+            }
+        };
+
+        // should use the correct parameters
+        $response = 'Бе́лки|Белки́ пита́ются бе́лками|белка́ми';
+        $text = 'Белки питаются белками';
+
+        $client->communicator->response = $response;
+
+        $client->addStressMarks($text);
+
+        $this->assertEquals(
+          '/russian/addstressmarks',
+          $client->communicator->lastPath
+        );
+
+        $this->assertEquals(
+          $text,
+          $client->communicator->lastParams[Communicator::CONTENT_BODY_KEY]
+        );
+
+        $this->assertEquals(
+          Communicator::METHOD_POST,
+          $client->communicator->lastHttpMethod
+        );
+
+        // should return spelling number
+        $result = $client->addStressMarks($text);
+
+        $this->assertEquals(
+          $response,
+          $result
+        );
+
+        // should throw Exception
+        $client->communicator->exception = new InvalidServerResponseException(
+          400,
+          'Текст должен передаваться в теле запроса.',
+          6
+        );
+
+        $this->assertThrows(
+          ArgumentEmptyException::class,
+          function () use ($client, $text) {
+              $client->addStressMarks($text);
+          });
+
+        $client->communicator->exception = new InvalidServerResponseException(
+          500,
+          'Ошибка сервера.',
+          11
+        );
+
+        $this->assertThrows(
+          InvalidServerResponseException::class,
+          function () use ($client, $text) {
+              $client->addStressMarks($text);
           });
     }
 }
