@@ -10,7 +10,7 @@ use Morpher\Communicator\InvalidServerResponseException;
 
 class UserDict
 {
-    const PREFIX = '/ukrainian/userdict';
+    const PATH = '/ukrainian/userdict';
 
     protected Communicator $communicator;
 
@@ -24,7 +24,7 @@ class UserDict
         $params = $entry->toNameValueArray();
 
         try {
-            $this->communicator->request(self::PREFIX, $params, Communicator::METHOD_POST);
+            $this->communicator->request(self::PATH, $params, Communicator::METHOD_POST);
         } catch (InvalidServerResponseException $exception) {
 
             $msg = $exception->getMessage();
@@ -46,7 +46,7 @@ class UserDict
         ];
 
         try {
-            $data = $this->communicator->request(self::PREFIX, $params, Communicator::METHOD_DELETE);
+            $data = $this->communicator->request(self::PATH, $params, Communicator::METHOD_DELETE);
         } catch (InvalidServerResponseException $exception) {
 
             $msg = $exception->getMessage();
@@ -69,7 +69,7 @@ class UserDict
      */
     public function getAll(): array
     {
-        $data = $this->communicator->request(self::PREFIX, [], Communicator::METHOD_GET);
+        $data = $this->communicator->request(self::PATH, [], Communicator::METHOD_GET);
 
         for ($i = 0; $i < count($data); $i++) {
             $data[$i] = new CorrectionEntry($data[$i]);
